@@ -1,0 +1,163 @@
+@import 'tailwindcss';
+
+/*
+  Sistema visual: la escala de triage es la paleta.
+  vital (triage 1, rojo) · signal (triage 2, naranja) · caution (triage 3, amarillo) · calm (triage 4, verde)
+  Sobre un papel clínico frío y la tinta "madrugada" de las visitas nocturnas.
+*/
+@theme {
+  --color-paper: #f3f6f9;
+  --color-mist: #e4eaf1;
+  --color-ink: #0f2340;
+  --color-muted: #4f5d72;
+  --color-brand: #0b4f9c;
+  --color-brand-600: #083f7d;
+  --color-brand-50: #e3edf8;
+  --color-vital: #c8102e;
+  --color-vital-50: #fbe6e9;
+  --color-signal: #e8701a;
+  --color-signal-600: #b9530b;
+  --color-signal-700: #9c4508;
+  --color-signal-50: #fdeedf;
+  --color-caution: #e9b21c;
+  --color-caution-ink: #7a5600;
+  --color-caution-50: #fbf2d6;
+  --color-calm: #2e8b57;
+  --color-calm-50: #e2f2e8;
+  --color-whatsapp: #128c4a;
+
+  --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Atkinson Hyperlegible Next', ui-sans-serif, system-ui, sans-serif;
+
+  --animate-pulse-dot: pulse-dot 1.8s ease-out infinite;
+  --animate-rise: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  /* Curva amortiguada sin rebote (aprox. resorte de Apple, damping 1.0) */
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+
+  @keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 rgb(46 139 87 / 0.55); }
+    80%, 100% { box-shadow: 0 0 0 10px rgb(46 139 87 / 0); }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  /* Tracking y leading según el tamaño: más apretado cuanto más grande */
+  h1, h2, h3, h4 {
+    @apply font-display text-balance;
+    font-stretch: 84%;
+  }
+  h1 { letter-spacing: -0.025em; line-height: 1; }
+  h2 { letter-spacing: -0.02em; line-height: 1.04; }
+  h3, h4 { letter-spacing: -0.01em; line-height: 1.15; }
+  .text-sm, .text-xs { letter-spacing: 0.01em; }
+  :focus-visible {
+    @apply outline-3 outline-offset-2 outline-brand rounded-md;
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-base font-bold transition duration-150 ease-out active:scale-[0.97] active:duration-100;
+  touch-action: manipulation;
+}
+
+/* Respuesta al presionar (pointer-down), no al soltar */
+@utility press {
+  transition-property: transform, background-color, border-color, color;
+  transition-duration: 100ms;
+  transition-timing-function: ease-out;
+  touch-action: manipulation;
+  &:active { transform: scale(0.98); }
+}
+
+/* Material translúcido: capa funcional que flota sobre el contenido */
+@utility material {
+  background-color: rgb(255 255 255 / 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  @media (prefers-reduced-transparency: reduce) {
+    background-color: white;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  @media (prefers-contrast: more) {
+    background-color: white;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--color-ink);
+  }
+}
+
+/* Cifras y horas: Archivo expandida, con números tabulares */
+@utility numeral {
+  @apply font-display;
+  font-stretch: 125%;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .btn-urgent {
+    @apply btn bg-signal-600 text-white hover:bg-signal-700;
+  }
+  .btn-whatsapp {
+    @apply btn bg-whatsapp text-white hover:brightness-110;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-600;
+  }
+  .btn-ghost {
+    @apply btn border-2 border-ink/15 bg-white text-ink hover:border-ink/40;
+  }
+  .eyebrow {
+    @apply font-display text-base font-bold text-brand;
+  }
+  .card {
+    @apply rounded-xl border border-ink/10 bg-white;
+  }
+  .field {
+    @apply w-full rounded-lg border-2 border-ink/15 bg-white px-4 py-3 text-base text-ink placeholder:text-muted/70 transition focus:border-brand focus:ring-4 focus:ring-brand/15 focus:outline-none;
+  }
+}
+
+/* Preguntas frecuentes: la respuesta se despliega en lugar de aparecer de golpe */
+@supports (interpolate-size: allow-keywords) and selector(::details-content) {
+  :root { interpolate-size: allow-keywords; }
+  details::details-content {
+    height: 0;
+    overflow: clip;
+    transition: height 0.35s var(--ease-spring), content-visibility 0.35s allow-discrete;
+  }
+  details[open]::details-content { height: auto; }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+/* Movimiento reducido: no se quita la respuesta, se cambia por fundidos */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-rise { animation-name: fade; }
+  .animate-pulse-dot { animation: none; }
+  *, *::before, *::after {
+    transition-property: color, background-color, border-color, opacity, box-shadow !important;
+  }
+  details::details-content { transition: none !important; }
+}
