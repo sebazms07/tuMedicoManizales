@@ -11,12 +11,12 @@ withDefaults(defineProps<{ title?: string; message?: string }>(), {
 </script>
 
 <template>
-  <section class="container-page py-10">
-    <div class="relative overflow-hidden rounded-2xl bg-brand px-6 py-12 text-white md:px-14 md:py-16">
-      <div class="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+  <section class="py-10">
+    <div class="panel bg-brand py-12 text-white md:py-16">
+      <div class="container-page flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 class="text-4xl font-extrabold md:text-6xl">{{ title }}</h2>
-          <p class="mt-3 text-lg text-white/80">Escríbenos o llámanos. Atendemos {{ site.hours.toLowerCase() }}.</p>
+          <h2 class="h-display">{{ title }}</h2>
+          <p class="mt-3 text-lg text-white/85">Escríbenos o llámanos. Atendemos {{ site.hours.toLowerCase() }}.</p>
         </div>
         <div class="flex flex-col gap-3 sm:flex-row md:shrink-0">
           <a :href="whatsappLink(message)" target="_blank" rel="noopener" class="btn-whatsapp px-7 py-4 text-lg">

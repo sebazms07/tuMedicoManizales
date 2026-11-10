@@ -101,17 +101,16 @@ function submit() {
 
 <template>
   <section class="container-page grid gap-10 pt-10 pb-16 md:pt-16 lg:grid-cols-[1fr_1.35fr]">
-    <div class="lg:sticky lg:top-28 lg:self-start">
-      <p class="eyebrow">Visita programada</p>
-      <h1 class="mt-3 text-4xl font-extrabold md:text-6xl">Agenda tu visita médica</h1>
+    <div class="lg:sticky lg:top-32 lg:self-start">
+      <h1 class="text-4xl font-bold md:text-[3.5rem]">Agenda tu visita médica</h1>
       <p class="mt-5 text-lg text-muted">Llena estos datos en menos de un minuto. Al enviar, se abre WhatsApp con tu solicitud lista y te confirmamos el horario.</p>
 
-      <div class="mt-8 rounded-xl border border-signal/25 bg-signal-50 p-6">
-        <p class="flex items-center gap-2 font-display text-xl font-bold text-signal-600"><Zap class="size-5" aria-hidden="true" />¿Es urgente?</p>
+      <div class="mt-8 rounded-panel bg-signal-50 p-6">
+        <p class="flex items-center gap-2 font-display text-xl font-bold text-signal-700"><Zap class="size-5" aria-hidden="true" />¿Es urgente?</p>
         <p class="mt-2 text-ink/80">No llenes el formulario: pide tu médico ya y llegamos en 30 a 90 minutos.</p>
         <div class="mt-4 flex flex-wrap gap-2">
-          <a :href="whatsappLink()" target="_blank" rel="noopener" class="btn-whatsapp !py-2.5"><WhatsAppIcon class="size-5" />WhatsApp</a>
-          <a :href="phoneLink" class="btn-ghost !py-2.5">Llamar {{ site.phoneDisplay }}</a>
+          <a :href="whatsappLink()" target="_blank" rel="noopener" class="btn-whatsapp"><WhatsAppIcon class="size-5" />WhatsApp</a>
+          <a :href="phoneLink" class="btn-ghost">Llamar {{ site.phoneDisplay }}</a>
         </div>
       </div>
       <p class="mt-6 flex items-start gap-2 text-sm text-muted">
@@ -120,9 +119,9 @@ function submit() {
       </p>
     </div>
 
-    <form class="card space-y-7 p-6 md:p-9" novalidate @submit.prevent="submit">
+    <form class="card space-y-7 !rounded-panel p-5 md:p-9" novalidate @submit.prevent="submit">
       <div>
-        <label for="service" class="mb-2 block font-semibold">Servicio</label>
+        <label for="service" class="mb-2 block font-bold">Servicio</label>
         <select id="service" v-model="form.service" class="field">
           <option v-for="s in services" :key="s.slug" :value="s.slug">{{ s.name }}</option>
         </select>
@@ -131,58 +130,58 @@ function submit() {
 
       <div class="grid gap-5 sm:grid-cols-2">
         <div class="sm:col-span-2">
-          <label for="name" class="mb-2 block font-semibold">Nombre del paciente</label>
+          <label for="name" class="mb-2 block font-bold">Nombre del paciente</label>
           <input id="name" v-model="form.name" class="field" autocomplete="name" :aria-invalid="!!errors.name" aria-describedby="name-err" />
-          <p v-if="errors.name" id="name-err" class="mt-1.5 text-sm text-signal-600">{{ errors.name }}</p>
+          <p v-if="errors.name" id="name-err" class="mt-1.5 font-bold text-vital">{{ errors.name }}</p>
         </div>
       </div>
 
       <fieldset>
-        <legend class="mb-2 font-semibold">El paciente es</legend>
+        <legend class="mb-2 font-bold">El paciente es</legend>
         <div class="grid grid-cols-3 gap-2">
           <label v-for="p in patients" :key="p" class="press cursor-pointer">
             <input v-model="form.patient" type="radio" name="patient" :value="p" class="peer sr-only" :aria-invalid="!!errors.patient" />
-            <span class="block rounded-lg border-2 border-ink/15 bg-white px-2 py-3 text-center font-medium transition peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-4 peer-focus-visible:ring-brand/25">{{ p }}</span>
+            <span class="block flex min-h-14 flex-col items-center justify-center rounded-field border-2 border-ink/20 bg-white px-2 py-2.5 text-center leading-tight font-medium transition peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-4 peer-focus-visible:ring-brand/25">{{ p }}</span>
           </label>
         </div>
-        <p v-if="errors.patient" class="mt-1.5 text-sm text-signal-600">{{ errors.patient }}</p>
+        <p v-if="errors.patient" class="mt-1.5 font-bold text-vital">{{ errors.patient }}</p>
       </fieldset>
 
       <div class="grid gap-5 sm:grid-cols-[1fr_1.6fr]">
         <div>
-          <label for="neighborhood" class="mb-2 block font-semibold">Barrio</label>
+          <label for="neighborhood" class="mb-2 block font-bold">Barrio</label>
           <input id="neighborhood" v-model="form.neighborhood" class="field" placeholder="Ej. Palermo" :aria-invalid="!!errors.neighborhood" aria-describedby="nb-err" />
-          <p v-if="errors.neighborhood" id="nb-err" class="mt-1.5 text-sm text-signal-600">{{ errors.neighborhood }}</p>
+          <p v-if="errors.neighborhood" id="nb-err" class="mt-1.5 font-bold text-vital">{{ errors.neighborhood }}</p>
         </div>
         <div>
-          <label for="address" class="mb-2 block font-semibold">Dirección</label>
+          <label for="address" class="mb-2 block font-bold">Dirección</label>
           <input id="address" v-model="form.address" class="field" autocomplete="street-address" placeholder="Calle, número, apto" :aria-invalid="!!errors.address" aria-describedby="addr-err" />
-          <p v-if="errors.address" id="addr-err" class="mt-1.5 text-sm text-signal-600">{{ errors.address }}</p>
+          <p v-if="errors.address" id="addr-err" class="mt-1.5 font-bold text-vital">{{ errors.address }}</p>
         </div>
       </div>
 
       <div>
-        <label for="date" class="mb-2 block font-semibold">Fecha</label>
+        <label for="date" class="mb-2 block font-bold">Fecha</label>
         <input id="date" v-model="form.date" type="date" :min="minDate || undefined" class="field sm:max-w-xs" :aria-invalid="!!errors.date" aria-describedby="date-err" />
-        <p v-if="errors.date" id="date-err" class="mt-1.5 text-sm text-signal-600">{{ errors.date }}</p>
+        <p v-if="errors.date" id="date-err" class="mt-1.5 font-bold text-vital">{{ errors.date }}</p>
       </div>
 
       <fieldset>
-        <legend class="mb-2 font-semibold">Franja horaria</legend>
+        <legend class="mb-2 font-bold">Franja horaria</legend>
         <div class="grid grid-cols-3 gap-2">
           <label v-for="s in slots" :key="s.id" class="press cursor-pointer">
             <input v-model="form.slot" type="radio" name="slot" :value="s.id" class="peer sr-only" :aria-invalid="!!errors.slot" />
-            <span class="block rounded-lg border-2 border-ink/15 bg-white px-2 py-3 text-center transition peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-4 peer-focus-visible:ring-brand/25">
+            <span class="block flex min-h-14 flex-col items-center justify-center rounded-field border-2 border-ink/20 bg-white px-2 py-2.5 text-center leading-tight transition peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-4 peer-focus-visible:ring-brand/25">
               <span class="block font-semibold">{{ s.label }}</span>
-              <span class="block text-xs opacity-75">{{ s.hint }}</span>
+              <span class="block text-sm opacity-80">{{ s.hint }}</span>
             </span>
           </label>
         </div>
-        <p v-if="errors.slot" class="mt-1.5 text-sm text-signal-600">{{ errors.slot }}</p>
+        <p v-if="errors.slot" class="mt-1.5 font-bold text-vital">{{ errors.slot }}</p>
       </fieldset>
 
       <div>
-        <label for="reason" class="mb-2 block font-semibold">Motivo de la visita <span class="font-normal text-muted">(opcional)</span></label>
+        <label for="reason" class="mb-2 block font-bold">Motivo de la visita <span class="font-normal text-muted">(opcional)</span></label>
         <textarea id="reason" v-model="form.reason" rows="3" class="field" placeholder="Cuéntanos brevemente los síntomas o lo que necesitas" />
       </div>
 
@@ -190,7 +189,7 @@ function submit() {
         <Send class="size-5" aria-hidden="true" />
         Enviar solicitud por WhatsApp
       </button>
-      <p v-if="sent" role="status" class="rounded-xl bg-calm-50 px-4 py-3 text-calm">
+      <p v-if="sent" role="status" class="rounded-field bg-calm-50 px-4 py-3 text-calm-700">
         ¡Listo! Abrimos WhatsApp con tu solicitud. Si no se abrió, <a :href="whatsappLink(buildMessage())" target="_blank" rel="noopener" class="font-semibold underline">toca aquí</a>.
       </p>
     </form>

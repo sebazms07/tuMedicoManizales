@@ -16,7 +16,7 @@ useHead({
     Saltar al contenido
   </a>
   <AppHeader />
-  <main id="contenido" class="pb-24 md:pb-0">
+  <main id="contenido">
     <RouterView :key="$route.path" />
   </main>
   <AppFooter />

@@ -17,12 +17,12 @@ const documents: { name: string; file: string }[] = []
 <template>
   <PageIntro eyebrow="Transparencia" title="Documentos legales del Régimen Tributario Especial" />
   <section class="container-page pb-16">
-    <ul v-if="documents.length" class="divide-y divide-ink/10 border-y border-ink/10">
+    <ul v-if="documents.length" class="divide-y divide-ink/10">
       <li v-for="d in documents" :key="d.file" class="py-4">
         <a :href="d.file" target="_blank" rel="noopener" class="font-semibold text-brand hover:underline">{{ d.name }}</a>
       </li>
     </ul>
-    <p v-else class="card max-w-2xl p-7 text-lg text-muted">
+    <p v-else class="card max-w-2xl !rounded-panel p-7 text-lg text-muted">
       Estamos actualizando esta sección. Si necesitas algún documento, <a :href="whatsappLink('Hola, solicito los documentos del Régimen Tributario Especial.')" target="_blank" rel="noopener" class="font-semibold text-brand underline">escríbenos</a> y te lo enviamos.
     </p>
   </section>

@@ -3,31 +3,40 @@
 /*
   Sistema visual: la escala de triage es la paleta.
   vital (triage 1, rojo) · signal (triage 2, naranja) · caution (triage 3, amarillo) · calm (triage 4, verde)
-  Sobre un papel clínico frío y la tinta "madrugada" de las visitas nocturnas.
+  Sobre blanco, con superficies suaves muy redondeadas y la tinta "madrugada" de las visitas nocturnas.
 */
 @theme {
-  --color-paper: #f3f6f9;
-  --color-mist: #e4eaf1;
+  /* Página blanca; "mist" es la superficie suave de paneles y tarjetas */
+  --color-paper: #f7f9fc;
+  --color-mist: #eef3f9;
   --color-ink: #0f2340;
-  --color-muted: #4f5d72;
+  --color-muted: #4a586d;
   --color-brand: #0b4f9c;
   --color-brand-600: #083f7d;
-  --color-brand-50: #e3edf8;
+  --color-brand-50: #e1edfb;
   --color-vital: #c8102e;
-  --color-vital-50: #fbe6e9;
+  --color-vital-50: #fde8eb;
   --color-signal: #e8701a;
   --color-signal-600: #b9530b;
   --color-signal-700: #9c4508;
   --color-signal-50: #fdeedf;
   --color-caution: #e9b21c;
   --color-caution-ink: #7a5600;
-  --color-caution-50: #fbf2d6;
+  --color-caution-50: #fcf3d4;
   --color-calm: #2e8b57;
-  --color-calm-50: #e2f2e8;
-  --color-whatsapp: #128c4a;
+  --color-calm-700: #1d6b40;
+  --color-calm-50: #e1f3e8;
+  --color-whatsapp: #0f7f42;
 
   --font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Atkinson Hyperlegible Next', ui-sans-serif, system-ui, sans-serif;
+
+  /* Radios por jerarquía: panel > tarjeta > campo. Los botones son píldoras. */
+  --radius-panel: 2rem;
+  --radius-tile: 1.5rem;
+  --radius-field: 1rem;
+
+  --shadow-float: 0 1px 0 rgb(15 35 64 / 0.06), 0 14px 32px -16px rgb(15 35 64 / 0.35);
 
   --animate-pulse-dot: pulse-dot 1.8s ease-out infinite;
   --animate-rise: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
@@ -51,26 +60,25 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-paper font-sans text-ink antialiased;
+    @apply bg-white font-sans text-ink antialiased;
     font-size: 1.0625rem;
     line-height: 1.6;
   }
   /* Tracking y leading según el tamaño: más apretado cuanto más grande */
   h1, h2, h3, h4 {
     @apply font-display text-balance;
-    font-stretch: 84%;
   }
-  h1 { letter-spacing: -0.025em; line-height: 1; }
-  h2 { letter-spacing: -0.02em; line-height: 1.04; }
-  h3, h4 { letter-spacing: -0.01em; line-height: 1.15; }
+  h1 { letter-spacing: -0.035em; line-height: 1.04; }
+  h2 { letter-spacing: -0.03em; line-height: 1.08; }
+  h3, h4 { letter-spacing: -0.015em; line-height: 1.2; }
   .text-sm, .text-xs { letter-spacing: 0.01em; }
   :focus-visible {
-    @apply outline-3 outline-offset-2 outline-brand rounded-md;
+    @apply outline-3 outline-offset-2 outline-brand;
   }
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-base font-bold transition duration-150 ease-out active:scale-[0.97] active:duration-100;
+  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold transition duration-150 ease-out active:scale-[0.97] active:duration-100;
   touch-action: manipulation;
 }
 
@@ -113,6 +121,13 @@
   .container-page {
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
   }
+  /* Panel a sangre casi completa con esquinas grandes: separa secciones sin bandas ni líneas */
+  .panel {
+    @apply mx-2 rounded-panel sm:mx-4;
+  }
+  .h-display {
+    @apply text-[2.125rem] font-bold md:text-5xl;
+  }
   .btn-urgent {
     @apply btn bg-signal-600 text-white hover:bg-signal-700;
   }
@@ -123,16 +138,16 @@
     @apply btn bg-brand text-white hover:bg-brand-600;
   }
   .btn-ghost {
-    @apply btn border-2 border-ink/15 bg-white text-ink hover:border-ink/40;
+    @apply btn bg-white text-ink ring-2 ring-ink/15 ring-inset hover:ring-ink/40;
   }
-  .eyebrow {
-    @apply font-display text-base font-bold text-brand;
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full bg-brand-50 px-3.5 py-1.5 text-base font-bold text-brand;
   }
   .card {
-    @apply rounded-xl border border-ink/10 bg-white;
+    @apply rounded-tile bg-mist;
   }
   .field {
-    @apply w-full rounded-lg border-2 border-ink/15 bg-white px-4 py-3 text-base text-ink placeholder:text-muted/70 transition focus:border-brand focus:ring-4 focus:ring-brand/15 focus:outline-none;
+    @apply w-full rounded-field border-2 border-ink/20 bg-white px-4 py-3 text-base text-ink placeholder:text-muted/80 transition focus:border-brand focus:ring-4 focus:ring-brand/15 focus:outline-none;
   }
 }
 

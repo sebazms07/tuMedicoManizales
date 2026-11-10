@@ -4,19 +4,19 @@ import { plans } from '@/data/site'
 </script>
 
 <template>
-  <ul class="grid gap-4 lg:grid-cols-3">
+  <ul class="grid gap-3 lg:grid-cols-3 lg:gap-4">
     <li
       v-for="p in plans"
       :key="p.id"
-      class="relative flex flex-col rounded-xl p-7"
-      :class="p.featured ? 'bg-ink text-white' : 'card'"
+      class="relative flex flex-col rounded-panel p-7 md:p-8"
+      :class="p.featured ? 'bg-ink text-white' : 'bg-mist'"
     >
-      <span v-if="p.featured" class="mb-4 self-start rounded-md bg-signal px-2.5 py-1 text-sm font-bold text-ink">El más solicitado</span>
-      <h3 class="text-3xl font-bold">{{ p.name }}</h3>
+      <span v-if="p.featured" class="mb-4 self-start rounded-full bg-signal px-3.5 py-1.5 text-sm font-bold text-ink">El más solicitado</span>
+      <h3 class="text-2xl font-bold md:text-[1.75rem]">{{ p.name }}</h3>
       <p class="mt-2" :class="p.featured ? 'text-white/75' : 'text-muted'">{{ p.summary }}</p>
       <ul class="mt-6 mb-8 space-y-3">
         <li v-for="f in p.features" :key="f" class="flex gap-3">
-          <Check class="mt-1 size-5 shrink-0" :class="p.featured ? 'text-signal' : 'text-calm'" aria-hidden="true" />
+          <Check class="mt-1 size-5 shrink-0" :class="p.featured ? 'text-signal' : 'text-calm-700'" aria-hidden="true" />
           <span>{{ f }}</span>
         </li>
       </ul>

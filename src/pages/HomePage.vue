@@ -23,23 +23,23 @@ useSeo({
   <NeedPicker />
   <TriageTimes />
 
-  <section aria-labelledby="services-title" class="container-page pb-16 md:pb-24">
+  <section aria-labelledby="services-title" class="container-page pb-14 md:pb-20">
     <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div>
-        <h2 id="services-title" class="text-4xl font-extrabold md:text-6xl">A domicilio o programados</h2>
+        <h2 id="services-title" class="h-display">A domicilio o programados</h2>
       </div>
-      <RouterLink to="/servicios" class="group inline-flex items-center gap-1.5 font-bold text-brand">
+      <RouterLink to="/servicios" class="group inline-flex min-h-11 items-center gap-1.5 font-bold text-brand underline-offset-4 hover:underline">
         Ver todos los servicios <ArrowRight class="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
       </RouterLink>
     </div>
-    <div class="mt-10"><ServicesGrid /></div>
+    <div class="mt-8 md:mt-10"><ServicesGrid /></div>
   </section>
 
   <TrustSection />
 
-  <section aria-labelledby="plans-title" class="container-page py-16 md:py-24">
-    <h2 id="plans-title" class="max-w-2xl text-4xl font-extrabold md:text-6xl">Elige cómo quieres estar cubierto</h2>
-    <div class="mt-12"><PlansGrid /></div>
+  <section aria-labelledby="plans-title" class="container-page py-14 md:py-20">
+    <h2 id="plans-title" class="h-display max-w-2xl">Elige cómo quieres estar cubierto</h2>
+    <div class="mt-8 md:mt-10"><PlansGrid /></div>
   </section>
 
   <PartnersStrip />
