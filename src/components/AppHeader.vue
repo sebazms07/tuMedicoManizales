@@ -48,7 +48,7 @@ onUnmounted(() => {
       :class="scrolled || open ? 'shadow-float' : ''"
     >
       <RouterLink to="/" class="press flex shrink-0 items-center rounded-full" aria-label="Tu Médico Manizales, inicio">
-        <img :src="asset('img/logo.png')" alt="Tu Médico · Cuando lo necesitas" width="452" height="134" class="h-9 w-auto md:h-11" />
+        <img :src="asset('img/logo.png')" alt="Tu Médico" width="520" height="209" class="h-11 w-auto md:h-[3.25rem]" />
       </RouterLink>
 
       <nav class="hidden items-center gap-1 lg:flex" aria-label="Principal">

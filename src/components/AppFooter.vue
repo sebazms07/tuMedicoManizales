@@ -2,7 +2,7 @@
 import { Phone, Clock, MapPin } from 'lucide-vue-next'
 import { site } from '@/data/site'
 import { services } from '@/data/services'
-import { phoneLink, whatsappLink } from '@/composables/useContact'
+import { asset, phoneLink, whatsappLink } from '@/composables/useContact'
 
 const year = new Date().getFullYear()
 </script>
@@ -11,8 +11,8 @@ const year = new Date().getFullYear()
   <footer class="mx-2 mt-8 rounded-t-panel bg-ink pt-6 pb-24 text-white/80 sm:mx-4 md:pb-0">
     <div class="container-page grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
       <div>
-        <p class="font-display text-3xl font-bold tracking-tight text-white">Tu Médico</p>
-        <p class="mt-1 text-white/70">{{ site.tagline }}, en {{ site.city }} las 24 horas</p>
+        <img :src="asset('img/logo-blanco.png')" alt="Tu Médico, asistencia médica domiciliaria en Manizales" width="640" height="363" loading="lazy" class="h-28 w-auto" />
+        <p class="mt-4 text-white/70">{{ site.tagline }}, en {{ site.city }} las 24 horas</p>
         <p class="mt-4 max-w-sm">
           Un equipo de médicos con amplia experiencia, especialistas en atención domiciliaria.
         </p>

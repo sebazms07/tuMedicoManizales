@@ -2,7 +2,7 @@
 export const site = {
   name: 'Tu Médico Manizales',
   shortName: 'Tu Médico',
-  tagline: 'Tu médico cuando lo necesitas',
+  tagline: 'Siempre contigo, siempre para ti',
   url: 'https://tumedicomanizales.com',
   city: 'Manizales',
   region: 'Caldas',
